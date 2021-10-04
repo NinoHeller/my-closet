@@ -3,6 +3,7 @@ package de.ninoheller.closet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.util.Scanner;
 
 @Component
@@ -15,6 +16,7 @@ public class MainScreen {
         this.closet = closet;
     }
 
+    @PostConstruct
     public void show() {
         Scanner scanner = new Scanner(System.in);
         int mainMenueSelection;

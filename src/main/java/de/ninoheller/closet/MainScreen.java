@@ -16,7 +16,7 @@ public class MainScreen {
         this.closet = closet;
     }
 
-    @PostConstruct
+//    @PostConstruct
     public void show() {
         Scanner scanner = new Scanner(System.in);
         int mainMenueSelection;

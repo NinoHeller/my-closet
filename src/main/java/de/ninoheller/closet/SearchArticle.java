@@ -1,4 +1,4 @@
-package de.Nino.myCloset;
+package de.ninoheller.closet;
 
 public class SearchArticle {
 	// Attributes
@@ -9,11 +9,11 @@ public class SearchArticle {
 		System.out.println("******************************************************");
 		System.out.println("*         Ok - Das sind deine Suchoptionen?          *");
 		System.out.println("*                                                    *");
-		System.out.println("*        1. Art des Kleidungsstücks                  *");
-		System.out.println("*        2. Farbe des Kleidungsstücks                *");
-		System.out.println("*        3. Größe des Kleidungsstücks                *");
-		System.out.println("*        4. Marke des Kleidungsstücks                *");
-		System.out.println("*        5. Alle Kleidungsstücke anzeigen            *");
+		System.out.println("*        1. Art des Kleidungsstï¿½cks                  *");
+		System.out.println("*        2. Farbe des Kleidungsstï¿½cks                *");
+		System.out.println("*        3. Grï¿½ï¿½e des Kleidungsstï¿½cks                *");
+		System.out.println("*        4. Marke des Kleidungsstï¿½cks                *");
+		System.out.println("*        5. Alle Kleidungsstï¿½cke anzeigen            *");
 		System.out.println("*                                                    *");
 		System.out.println("*           Bitte gib deine Auswahl ein ...          *");
 		System.out.println("******************************************************");

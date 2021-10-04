@@ -1,8 +1,10 @@
-package de.Nino.myCloset;
+package de.ninoheller.closet;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
+@Component
 public class Closet {
 	// Attributes
 	private ArrayList<Article> myArticles;
@@ -10,7 +12,7 @@ public class Closet {
 
 	// Constructor
 	public Closet() {
-		myArticles = new ArrayList<Article>();
+		myArticles = new ArrayList<>();
 	}
 
 	// methods
@@ -33,7 +35,7 @@ public class Closet {
 		}
 		if (counter == 0) {
 			System.out.println("******************************************************");
-			System.out.println("*     Davon hast du noch keine Kleidungsstücke!      *");
+			System.out.println("*     Davon hast du noch keine Kleidungsstï¿½cke!      *");
 			System.out.println("******************************************************");
 		}
 		return true;
@@ -42,12 +44,12 @@ public class Closet {
 	// shows all articles from the closet
 	public boolean showAllArticles() {
 		System.out.println("******************************************************");
-		System.out.println("*        Hier sind alle deine Kleidungsstücke        *");
+		System.out.println("*        Hier sind alle deine Kleidungsstï¿½cke        *");
 		System.out.println("******************************************************");
 		for (Article article : myArticles) {
 			article.printArticle();
 			System.out.println(
-					"Es hängt an " + (myArticles.indexOf(article) + 1) + ". Stelle in deinem Kleiderschrank.\n\n");
+					"Es hï¿½ngt an " + (myArticles.indexOf(article) + 1) + ". Stelle in deinem Kleiderschrank.\n\n");
 		}
 		return true;
 	}
@@ -56,7 +58,7 @@ public class Closet {
 	public boolean removeArticle(int selection) {
 		myArticles.remove(selection - 1);
 		System.out.println("******************************************************");
-		System.out.println("*        Das Kleidungsstück wurde entfernt!          *");
+		System.out.println("*        Das Kleidungsstï¿½ck wurde entfernt!          *");
 		System.out.println("******************************************************");
 
 		return true;

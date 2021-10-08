@@ -15,8 +15,12 @@ repositories { //artifact repository
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+    implementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo'
+
 //    implementation '{groupId}:{artefactId|name}:{version}'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
 }
 
 test {

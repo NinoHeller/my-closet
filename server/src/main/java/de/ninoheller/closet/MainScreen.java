@@ -16,14 +16,13 @@ public class MainScreen {
         this.closet = closet;
     }
 
-//    @PostConstruct
+    @PostConstruct
     public void show() {
         Scanner scanner = new Scanner(System.in);
         int mainMenueSelection;
         int searchArticleSelection;
         int indexSelection;
         String searchParameter;
-
         do {
             MainMenue.showMainMenue();
             mainMenueSelection = scanner.nextInt();

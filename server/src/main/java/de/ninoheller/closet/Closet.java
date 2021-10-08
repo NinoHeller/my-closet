@@ -8,7 +8,6 @@ import java.util.Scanner;
 public class Closet {
 	// Attributes
 	private ArrayList<Article> myArticles;
-	private Scanner scanner = new Scanner(System.in);
 
 	// Constructor
 	public Closet() {

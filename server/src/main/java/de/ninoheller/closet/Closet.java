@@ -2,12 +2,13 @@ package de.ninoheller.closet;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 @Component
 public class Closet {
 	// Attributes
-	private ArrayList<Article> myArticles;
+	private List<Article> myArticles;
 
 	// Constructor
 	public Closet() {
@@ -64,7 +65,7 @@ public class Closet {
 	}
 
 	// getters
-	public ArrayList<Article> getMyArticles() {
+	public List<Article> getMyArticles() {
 		return myArticles;
 	}
 

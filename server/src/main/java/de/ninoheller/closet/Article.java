@@ -1,19 +1,29 @@
 package de.ninoheller.closet;
 
+import org.springframework.stereotype.Component;
+
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Article {
 
 	//Attributes
-	private String attributes[] = new String[4];
+	private final String type;
+	private final String color;
+	private final String brand;
+	private final String size;
+
+	enum sizes {s, m, l, xl};
 
 	//Constructor
-	public Article (String type, String color, String size, String brand) {
-		attributes[0] = type;
-		attributes[1] = color;
-		attributes[2] = size;
-		attributes[3] = brand;
+
+	public Article(String type, String color, String brand, String size) {
+		this.type = type;
+		this.color = color;
+		this.brand = brand;
+		this.size = size;
 	}
+
 
 	//Methods
 
@@ -22,48 +32,55 @@ public class Article {
 		Scanner scanner = new Scanner(System.in);
 
 		System.out.println("******************************************************");
-		System.out.println("*          Ok - Was m�chtest du hinzuf�gen?          *");
+		System.out.println("*          Ok - Was möchtest du hinzufügen?          *");
 		System.out.println("*            z.B. Jacke / Hose / T-Shirt             *");
 		System.out.println("*                        ...                         *");
 		System.out.println("******************************************************");
 		String type = scanner.next();
 		System.out.println("******************************************************");
-		System.out.println("*      Ok - Welche Farbe hat das Kleidungsst�ck?     *");
+		System.out.println("*      Ok - Welche Farbe hat das Kleidungsstück?     *");
 		System.out.println("*                        ...                         *");
 		System.out.println("******************************************************");
 		String color = scanner.next();
 		System.out.println("******************************************************");
-		System.out.println("*      Ok - Welche Gr��e hat das Kleidungsst�ck?     *");
-		System.out.println("*                        ...                         *");
-		System.out.println("******************************************************");
-		String size = scanner.next();
-		System.out.println("******************************************************");
-		System.out.println("*   Ok - Von welcher Marke ist das Kleidungsst�ck?   *");
+		System.out.println("*   Ok - Von welcher Marke ist das Kleidungsstück?   *");
 		System.out.println("*                        ...                         *");
 		System.out.println("******************************************************");
 		String brand = scanner.next();
 		System.out.println("******************************************************");
-		System.out.println("*   Ok - Dein Kleidungsst�ck wurde aufgehangen! :)   *");
+		System.out.println("*      Ok - Welche Größe hat das Kleidungsstück?     *");
+		System.out.println("*                                                    *");
+		System.out.println("******************************************************");
+		String size = sizes.valueOf(scanner.next().toLowerCase(Locale.ROOT)).toString();
+		System.out.println("******************************************************");
+		System.out.println("*   Ok - Dein Kleidungsstück wurde aufgehangen! :)   *");
 		System.out.println("******************************************************");
 
-		Article newArticle = new Article(type, color, size, brand);
+		Article newArticle = new Article(type, color, brand, size);
 
 		return newArticle;
 	}
 
-	// shows an article from the closet
-	public void printArticle() {
-		System.out.println("******************************************************");
-		System.out.println("* Dieses Kleidungsst�ck ist ein " + this.attributes[0]);
-		System.out.println("* Es hat die Farbe: " + this.attributes[1]);
-		System.out.println("* Die Gr��e ist: " + this.attributes[2]);
-		System.out.println("* Es ist von der Marke: " + this.attributes[3]);
-		System.out.println("******************************************************");
+
+	@Override
+	public String toString() {
+		return "Dieser Artikel ist ein(e) " + type + "\n" + "Mit der Farbe " + color + "\n" + "Von der Marke " + brand + "\n" + "In der Größe " + size;
 	}
 
 	//getters
-	public String[] getAttributes() {
-		return attributes;
+	public String getType() {
+		return type;
 	}
 
+	public String getColor() {
+		return color;
+	}
+
+	public String getBrand() {
+		return brand;
+	}
+
+	public String getSize() {
+		return size;
+	}
 }

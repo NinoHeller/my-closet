@@ -49,7 +49,7 @@ public class MainScreen implements ApplicationListener<ApplicationReadyEvent> {
                 case 2: {
                     if (closet.getSizeOfMyArticles() == 0) {
                         System.out.println("******************************************************");
-                        System.out.println("*         Du hast noch keine Kleidungsst�cke         *");
+                        System.out.println("*         Du hast noch keine Kleidungsstücke         *");
                         System.out.println("******************************************************");
                     } else {
                         SearchArticle.searchArticle();
@@ -64,11 +64,9 @@ public class MainScreen implements ApplicationListener<ApplicationReadyEvent> {
 
                         } else {
                             System.out.println("******************************************************");
-                            System.out.println("*            Wonach m�chtest du suchen?              *");
+                            System.out.println("*            Wonach möchtest du suchen?              *");
                             System.out.println("*                       ...                          *");
                             System.out.println("******************************************************");
-                            searchParameter = scanner.next();
-                            closet.showArticle(searchArticleSelection, searchParameter);
 
                         }
 
@@ -84,7 +82,7 @@ public class MainScreen implements ApplicationListener<ApplicationReadyEvent> {
                     } else {
                         closet.showAllArticles();
                         System.out.println("******************************************************");
-                        System.out.println("* Bitte gib die Stelle ein die gel�scht werden soll. *");
+                        System.out.println("* Bitte gib die Stelle ein die gelöscht werden soll. *");
                         System.out.println("*                        ...                         *");
                         System.out.println("******************************************************");
                         indexSelection = scanner.nextInt();

@@ -14,7 +14,7 @@ public class Article {
 	private final String brand;
 	private final String size;
 
-	enum sizes {s, m, l, xl};
+	private enum sizes {s, m, l, xl};
 
 	@Override
 	public boolean equals(Object o) {
@@ -62,9 +62,20 @@ public class Article {
 		String brand = scanner.next();
 		System.out.println("******************************************************");
 		System.out.println("*      Ok - Welche Größe hat das Kleidungsstück?     *");
-		System.out.println("*                                                    *");
+		System.out.println("*                s, m, l oder xl                     *");
 		System.out.println("******************************************************");
 		String size = sizes.valueOf(scanner.next().toLowerCase(Locale.ROOT)).toString();
+		/*try {
+			String size = sizes.valueOf(scanner.next().toLowerCase(Locale.ROOT)).toString();
+		}catch (Exception e1){
+			System.out.println("Bitte nur die vorgegebenen Größen wählen");
+			try{
+				String size = sizes.valueOf(scanner.next().toLowerCase(Locale.ROOT)).toString();
+			}catch (Exception e2){
+				System.out.println("Diese Größe gibt es nicht! Die Größe des Artikels wurde auf s festgelegt");
+				String size = sizes.valueOf("s").toString();
+			}
+		}*/
 		System.out.println("******************************************************");
 		System.out.println("*   Ok - Dein Kleidungsstück wurde aufgehangen! :)   *");
 		System.out.println("******************************************************");

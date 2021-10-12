@@ -25,7 +25,7 @@ public class Closet {
 	// search for an article from the closet
 	public boolean searchArticle(int selection, String parameter){
 		switch (selection){
-			case 1:{
+			case 1:{	//search by type
 				for (Article article : myArticles.stream()
 						.filter(article -> article.getType().equalsIgnoreCase(parameter))
 						.sorted(Comparator.comparing(article -> article.getColor()))
@@ -35,7 +35,7 @@ public class Closet {
 					System.out.println("******************************************************");
 				}
 			}break;
-			case 2:{
+			case 2:{	//search by color
 				for (Article article : myArticles.stream()
 						.filter(article -> article.getColor().equalsIgnoreCase(parameter))
 						.sorted(Comparator.comparing(article -> article.getType()))
@@ -45,7 +45,7 @@ public class Closet {
 					System.out.println("******************************************************");
 				}
 			}break;
-			case 3:{
+			case 3:{	//search by brand
 				for (Article article : myArticles.stream()
 						.filter(article -> article.getBrand().equalsIgnoreCase(parameter))
 						.sorted(Comparator.comparing(article -> article.getType()))
@@ -55,7 +55,7 @@ public class Closet {
 					System.out.println("******************************************************");
 				}
 			}break;
-			case 4:{
+			case 4:{	//search by size
 				for (Article article : myArticles.stream()
 						.filter(article -> article.getSize().equalsIgnoreCase(parameter))
 						.sorted(Comparator.comparing(article -> article.getType()))

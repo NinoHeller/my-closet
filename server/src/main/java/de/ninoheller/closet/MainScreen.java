@@ -39,7 +39,22 @@ public class MainScreen implements ApplicationListener<ApplicationReadyEvent> {
         String searchParameter;
         do {
             MainMenue.showMainMenue();
-            mainMenueSelection = scanner.nextInt();
+            try {
+                mainMenueSelection = scanner.nextInt();
+            }catch (Exception e1){
+                System.out.println("******************************************************");
+                System.out.println("*           Bitte nur Zahlen eingeben!               *");
+                System.out.println("******************************************************");
+                try{
+                    MainMenue.showMainMenue();
+                    mainMenueSelection = scanner.nextInt();
+                }catch (Exception e2){
+                    System.out.println("******************************************************");
+                    System.out.println("*                   Ok dann nicht!                   *");
+                    System.out.println("******************************************************");
+                    mainMenueSelection = 4;
+                }
+            }
 
             switch (mainMenueSelection) {
                 case 1: {
@@ -54,7 +69,6 @@ public class MainScreen implements ApplicationListener<ApplicationReadyEvent> {
                     } else {
                         SearchArticle.searchArticle();
                         searchArticleSelection = scanner.nextInt();
-
                         if (searchArticleSelection == 5) {
                             closet.showAllArticles();
                         } else if (searchArticleSelection > 5) {
@@ -70,9 +84,7 @@ public class MainScreen implements ApplicationListener<ApplicationReadyEvent> {
                             searchParameter = scanner.next();
                             closet.searchArticle(searchArticleSelection,searchParameter);
                         }
-
                     }
-
                 }
                 break;
                 case 3: {
@@ -101,7 +113,7 @@ public class MainScreen implements ApplicationListener<ApplicationReadyEvent> {
                 break;
                 case 4: {
                     System.out.println("******************************************************");
-                    System.out.println("*              Ok - Auf Wiedersehen! :)              *");
+                    System.out.println("*                Auf Wiedersehen! :)                 *");
                     System.out.println("******************************************************");
                 }
                 break;

@@ -1,7 +1,6 @@
 #Danke für die Aufgaben - hat auf jeden Fall viel gebracht! :)
 
 # Tasks
-# OO
 * Article2 in Article überführen, konsolideren (MongoDB erstmal ignorieren)
   * * <b>erledigt und getestet</b>
 ***
@@ -25,7 +24,15 @@
 * alle for loops in Streams konvertieren
   * * <b>erledigt und getestet</b>
 ***
-  
+#Fragen
+
+#Artikel löschen
+* um ein Objekt aus einem Set zu entfernen, muss man ja ein explizites Objekt an die remove methode übergeben und keinen Index
+* Dafür müsste ich ja nach der Ausgabe aller enthaltenen Artikel, den User bitten alle Attribute anzugeben von dem Artikel den er entfernen möchte
+* um damit genau das Objekt angeben zu können, welches entfernt werden soll
+* geht das eleganter über den hashcode z.B.?
+* Den ich dann mit einer Indexvariable verknüpfen würde, um den User nach dem Index zu fragen den er entfernen möchte?
+***
 
 # Exceptionhandling
 * Mainscreen

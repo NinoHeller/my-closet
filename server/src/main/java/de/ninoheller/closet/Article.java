@@ -3,6 +3,7 @@ package de.ninoheller.closet;
 import org.springframework.stereotype.Component;
 
 import java.util.Locale;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Article {
@@ -15,6 +16,18 @@ public class Article {
 
 	enum sizes {s, m, l, xl};
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Article article = (Article) o;
+		return Objects.equals(getType(), article.getType()) && Objects.equals(getColor(), article.getColor()) && Objects.equals(getBrand(), article.getBrand()) && Objects.equals(getSize(), article.getSize());
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(getType(), getColor(), getBrand(), getSize());
+	}
 	//Constructor
 
 	public Article(String type, String color, String brand, String size) {
@@ -64,7 +77,7 @@ public class Article {
 
 	@Override
 	public String toString() {
-		return "Dieser Artikel ist ein(e) " + type + "\n" + "Mit der Farbe " + color + "\n" + "Von der Marke " + brand + "\n" + "In der Größe " + size;
+		return "Dieser Artikel ist ein(e) " + type + "\n" + "Mit der Farbe " + color + "\n" + "Von der Marke " + brand + "\n" + "In der Größe " + size + "\n";
 	}
 
 	//getters

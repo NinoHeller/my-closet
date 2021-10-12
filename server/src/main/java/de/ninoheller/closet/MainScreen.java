@@ -67,7 +67,8 @@ public class MainScreen implements ApplicationListener<ApplicationReadyEvent> {
                             System.out.println("*            Wonach möchtest du suchen?              *");
                             System.out.println("*                       ...                          *");
                             System.out.println("******************************************************");
-
+                            searchParameter = scanner.next();
+                            closet.searchArticle(searchArticleSelection,searchParameter);
                         }
 
                     }
@@ -77,7 +78,7 @@ public class MainScreen implements ApplicationListener<ApplicationReadyEvent> {
                 case 3: {
                     if (closet.getSizeOfMyArticles() == 0) {
                         System.out.println("******************************************************");
-                        System.out.println("*         Du hast noch keine Kleidungsst�cke         *");
+                        System.out.println("*         Du hast noch keine Kleidungsstücke         *");
                         System.out.println("******************************************************");
                     } else {
                         closet.showAllArticles();

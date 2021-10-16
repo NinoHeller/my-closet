@@ -32,6 +32,12 @@ public class MainScreen implements ApplicationListener<ApplicationReadyEvent> {
 
         List<Article2> articles = repository.readArticleByType("t-shirt");
 
+        //Add test articles
+        TestArticles testArticles = new TestArticles();
+        for (int i = 0; i < testArticles.testArticles.size(); i++) {
+            closet.addArticle(testArticles.testArticles.get(i));
+        }
+
         Scanner scanner = new Scanner(System.in);
         int mainMenueSelection;
         int searchArticleSelection;
@@ -41,18 +47,17 @@ public class MainScreen implements ApplicationListener<ApplicationReadyEvent> {
             MainMenue.showMainMenue();
             try {
                 mainMenueSelection = scanner.nextInt();
-            }catch (Exception e1){
+            } catch (Exception e1) {
                 Logger.print("Bitte nur Zahlen eingeben!");
-                try{
+                try {
                     MainMenue.showMainMenue();
                     mainMenueSelection = scanner.nextInt();
-                }catch (Exception e2){
+                } catch (Exception e2) {
                     Logger.print("Ok dann nicht!");
                     mainMenueSelection = 4;
                 }
             }
-
-            switch (mainMenueSelection) {
+            switch (mainMenueSelection) {// 1. add article 2. search article 3. delete article
                 case 1: {
                     closet.addArticle(Article.createArticle());
                 }
@@ -61,17 +66,12 @@ public class MainScreen implements ApplicationListener<ApplicationReadyEvent> {
                     if (closet.getSizeOfMyArticles() == 0) {
                         Logger.print("Du hast noch keine Kleidungsstücke.");
                     } else {
-                        SearchArticle.searchArticle();
+                        SearchMenue.showSearchMenue();
                         searchArticleSelection = scanner.nextInt();
-                        if (searchArticleSelection == 5) {
-                            closet.showAllArticles();
-                        } else if (searchArticleSelection > 5) {
+                        if (searchArticleSelection > 5) {
                             Logger.print("Diese Auswahl gibt es nicht!");
-
                         } else {
-                            Logger.print("Wonach möchtest du suchen?","...");
-                            searchParameter = scanner.next();
-                            closet.searchArticle(searchArticleSelection,searchParameter);
+                            closet.searchArticle(searchArticleSelection);
                         }
                     }
                 }
@@ -80,17 +80,15 @@ public class MainScreen implements ApplicationListener<ApplicationReadyEvent> {
                     if (closet.getSizeOfMyArticles() == 0) {
                         Logger.print("Du hast noch keine Kleidungsstücke.");
                     } else {
-                        closet.showAllArticles();
+                        closet.searchArticle(5);
                         Logger.print("Welches Kleidungsstück möchtest du entfernen?");
                         indexSelection = scanner.nextInt();
-
                         if (indexSelection > closet.getSizeOfMyArticles()) {
                             Logger.print("Diese Stelle gibt es nicht");
                         } else {
                             closet.removeArticle(indexSelection);
                         }
                     }
-
                 }
                 break;
                 case 4: {
@@ -102,11 +100,7 @@ public class MainScreen implements ApplicationListener<ApplicationReadyEvent> {
                 }
                 break;
             }
-
         } while (mainMenueSelection != 4);
-
         scanner.close();
-
     }
-
 }

@@ -12,29 +12,25 @@ public class Article {
 	private final String type;
 	private final String color;
 	private final String brand;
-	private final String size;
-
-	//TODO enum würde man wie classes immer capitalized und singular schreiben: enum Size {...}
-	// Article.size sollte vom Type Size sein: private final Size size;
-	// nur auf diese Weise kann man enforcen, dass size valide Werte annimmt. Aktuell kann size jeden beliebigen String annehmen.
-	// Am Ende muss man dann auch equals, hashcode und toString neu generieren
-	private enum sizes {s, m, l, xl};
+	private final Sizes size;
+	private enum Sizes {s, m, l, xl};
 
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		Article article = (Article) o;
-		return Objects.equals(getType(), article.getType()) && Objects.equals(getColor(), article.getColor()) && Objects.equals(getBrand(), article.getBrand()) && Objects.equals(getSize(), article.getSize());
+		return Objects.equals(getType(), article.getType()) && Objects.equals(getColor(), article.getColor()) && Objects.equals(getBrand(), article.getBrand()) && getSize() == article.getSize();
 	}
 
 	@Override
 	public int hashCode() {
 		return Objects.hash(getType(), getColor(), getBrand(), getSize());
 	}
-	//Constructor
 
-	public Article(String type, String color, String brand, String size) {
+//Constructor
+
+	public Article(String type, String color, String brand, Sizes size) {
 		this.type = type;
 		this.color = color;
 		this.brand = brand;
@@ -48,27 +44,14 @@ public class Article {
 	public static Article createArticle () {
 		Scanner scanner = new Scanner(System.in);
 
-		System.out.println("******************************************************");
-		System.out.println("*          Ok - Was möchtest du hinzufügen?          *");
-		System.out.println("*            z.B. Jacke / Hose / T-Shirt             *");
-		System.out.println("*                        ...                         *");
-		System.out.println("******************************************************");
+		Logger.print("Ok - Was möchtest du hinzufügen?","z.B. Jacke / Hose / T-Shirt","...");
 		String type = scanner.next();
-		System.out.println("******************************************************");
-		System.out.println("*      Ok - Welche Farbe hat das Kleidungsstück?     *");
-		System.out.println("*                        ...                         *");
-		System.out.println("******************************************************");
+		Logger.print("Ok - Welche Farbe hat das Kleidungsstück?","...");
 		String color = scanner.next();
-		System.out.println("******************************************************");
-		System.out.println("*   Ok - Von welcher Marke ist das Kleidungsstück?   *");
-		System.out.println("*                        ...                         *");
-		System.out.println("******************************************************");
+		Logger.print("Ok - Von welcher Marke ist das Kleidungsstück?","...");
 		String brand = scanner.next();
-		System.out.println("******************************************************");
-		System.out.println("*      Ok - Welche Größe hat das Kleidungsstück?     *");
-		System.out.println("*                s, m, l oder xl                     *");
-		System.out.println("******************************************************");
-		String size = sizes.valueOf(scanner.next().toLowerCase(Locale.ROOT)).toString();
+		Logger.print("Ok - Welche Größe hat das Kleidungsstück?","s, m, l oder xl");
+		Sizes size = Sizes.valueOf(scanner.next().toLowerCase(Locale.ROOT));
 		/*try {
 			String size = sizes.valueOf(scanner.next().toLowerCase(Locale.ROOT)).toString();
 		}catch (Exception e1){
@@ -80,9 +63,7 @@ public class Article {
 				String size = sizes.valueOf("s").toString();
 			}
 		}*/
-		System.out.println("******************************************************");
-		System.out.println("*   Ok - Dein Kleidungsstück wurde aufgehangen! :)   *");
-		System.out.println("******************************************************");
+		Logger.print("Ok - Dein Kleidungsstück wurde aufgehangen! :)");
 
 		Article newArticle = new Article(type, color, brand, size);
 
@@ -109,6 +90,6 @@ public class Article {
 	}
 
 	public String getSize() {
-		return size;
+		return size.toString();
 	}
 }

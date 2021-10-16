@@ -42,16 +42,12 @@ public class MainScreen implements ApplicationListener<ApplicationReadyEvent> {
             try {
                 mainMenueSelection = scanner.nextInt();
             }catch (Exception e1){
-                System.out.println("******************************************************");
-                System.out.println("*           Bitte nur Zahlen eingeben!               *");
-                System.out.println("******************************************************");
+                Logger.print("Bitte nur Zahlen eingeben!");
                 try{
                     MainMenue.showMainMenue();
                     mainMenueSelection = scanner.nextInt();
                 }catch (Exception e2){
-                    System.out.println("******************************************************");
-                    System.out.println("*                   Ok dann nicht!                   *");
-                    System.out.println("******************************************************");
+                    Logger.print("Ok dann nicht!");
                     mainMenueSelection = 4;
                 }
             }
@@ -63,32 +59,17 @@ public class MainScreen implements ApplicationListener<ApplicationReadyEvent> {
                 break;
                 case 2: {
                     if (closet.getSizeOfMyArticles() == 0) {
-                        //TODO die println statements sorgen für viel 'noise' im Code (nehmen viel Platz ein und lenken von den wichtigeren Dinge ab)
-                        //lass uns das mal in eine statische Methode refactoren, sodass man an allen Stellen nur mehr folgendes aufrufen muss:
-                        // Logger.print("Du hast noch keine Kleidungsstücke");
-                        // TODO für die Signatur dieser Methode verwenden wir 'varargs':
-                        // static method print(String text, String...moreText) {...}
-                        // auf diese Weise können wir auch multi-line-prints machen:
-                        // Logger.print("Wonach möchtest du suchen?, "...");
-                        // Logger.print("Wonach möchtest du suchen?, "Zur Auswahl stehen:", "T-Shirt, Hose und Jacke");
-                        System.out.println("******************************************************");
-                        System.out.println("*         Du hast noch keine Kleidungsstücke         *");
-                        System.out.println("******************************************************");
+                        Logger.print("Du hast noch keine Kleidungsstücke.");
                     } else {
                         SearchArticle.searchArticle();
                         searchArticleSelection = scanner.nextInt();
                         if (searchArticleSelection == 5) {
                             closet.showAllArticles();
                         } else if (searchArticleSelection > 5) {
-                            System.out.println("******************************************************");
-                            System.out.println("*           Diese Auswahl gibt es nicht!             *");
-                            System.out.println("******************************************************");
+                            Logger.print("Diese Auswahl gibt es nicht!");
 
                         } else {
-                            System.out.println("******************************************************");
-                            System.out.println("*            Wonach möchtest du suchen?              *");
-                            System.out.println("*                       ...                          *");
-                            System.out.println("******************************************************");
+                            Logger.print("Wonach möchtest du suchen?","...");
                             searchParameter = scanner.next();
                             closet.searchArticle(searchArticleSelection,searchParameter);
                         }
@@ -97,21 +78,14 @@ public class MainScreen implements ApplicationListener<ApplicationReadyEvent> {
                 break;
                 case 3: {
                     if (closet.getSizeOfMyArticles() == 0) {
-                        System.out.println("******************************************************");
-                        System.out.println("*         Du hast noch keine Kleidungsstücke         *");
-                        System.out.println("******************************************************");
+                        Logger.print("Du hast noch keine Kleidungsstücke.");
                     } else {
                         closet.showAllArticles();
-                        System.out.println("******************************************************");
-                        System.out.println("* Bitte gib die Stelle ein die gelöscht werden soll. *");
-                        System.out.println("*                        ...                         *");
-                        System.out.println("******************************************************");
+                        Logger.print("Welches Kleidungsstück möchtest du entfernen?");
                         indexSelection = scanner.nextInt();
 
                         if (indexSelection > closet.getSizeOfMyArticles()) {
-                            System.out.println("******************************************************");
-                            System.out.println("*            Diese Stelle gibt es nicht!             *");
-                            System.out.println("******************************************************");
+                            Logger.print("Diese Stelle gibt es nicht");
                         } else {
                             closet.removeArticle(indexSelection);
                         }
@@ -120,15 +94,11 @@ public class MainScreen implements ApplicationListener<ApplicationReadyEvent> {
                 }
                 break;
                 case 4: {
-                    System.out.println("******************************************************");
-                    System.out.println("*                Auf Wiedersehen! :)                 *");
-                    System.out.println("******************************************************");
+                    Logger.print("Auf Wiedersehen! :)");
                 }
                 break;
                 default: {
-                    System.out.println("******************************************************");
-                    System.out.println("*           Diese Auswahl gibt es nicht!             *");
-                    System.out.println("******************************************************");
+                    Logger.print("Diese Auswahl gibt es nicht!");
                 }
                 break;
             }

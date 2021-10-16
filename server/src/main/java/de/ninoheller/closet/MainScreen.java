@@ -12,13 +12,15 @@ import java.util.Scanner;
 public class MainScreen implements ApplicationListener<ApplicationReadyEvent> {
 
     private final Closet closet;
+    private final DummyArticles dummyArticles;
 
     @Autowired
     Article2Repository repository;
 
     @Autowired
-    public MainScreen(Closet closet) {
+    public MainScreen(Closet closet, DummyArticles dummyArticles) {
         this.closet = closet;
+        this.dummyArticles = dummyArticles;
     }
 
 
@@ -32,10 +34,9 @@ public class MainScreen implements ApplicationListener<ApplicationReadyEvent> {
 
         List<Article2> articles = repository.readArticleByType("t-shirt");
 
-        //Add test articles
-        TestArticles testArticles = new TestArticles();
-        for (int i = 0; i < testArticles.testArticles.size(); i++) {
-            closet.addArticle(testArticles.testArticles.get(i));
+        //Add dummy articles
+        for (int i = 0; i < dummyArticles.dummyList.size(); i++) {
+            closet.addArticle(dummyArticles.dummyList.get(i));
         }
 
         Scanner scanner = new Scanner(System.in);

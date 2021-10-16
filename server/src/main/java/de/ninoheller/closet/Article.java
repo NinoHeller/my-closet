@@ -48,6 +48,11 @@ public class Article {
         static final Comparator<Article> BYBRAND = Comparator.comparing(Article::getBrand);
         static final Comparator<Article> BYSIZE = Comparator.comparing(Article::getSize);
 
+        static Comparator<Article> merge(Comparator<Article> comparator1, Comparator<Article> comparator2, Comparator<Article> comparator3){
+            Comparator<Article> comparator;
+            return  comparator = comparator1.thenComparing(comparator2).thenComparing(comparator3);
+        }
+
     }
 
     //Methods

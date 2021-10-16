@@ -26,9 +26,17 @@ public class Closet {
 	public boolean searchArticle(int selection, String parameter){
 		switch (selection){
 			case 1:{	//search by type
+				// TODO auch diese for-loops kann man über die Streams-API bzw. functional programming entfernen.
+				// jeder stream hat eine  .forEach Methode. IDEA konvertiert es für dich:
+				// myArticles.stream()
+				//		.filter(article -> article.getType().equalsIgnoreCase(parameter))
+				//		.sorted(Comparator.comparing(Article::getColor))
+				//		.forEach(article => System.out.println(....)
+
 				for (Article article : myArticles.stream()
 						.filter(article -> article.getType().equalsIgnoreCase(parameter))
-						.sorted(Comparator.comparing(article -> article.getColor()))
+						// TODO gut! Das kann man auch so schreiben: .sorted(Comparator.comparing(Article::getColor)). IDEA schlägt dir das auch vor und kann es automatisch machen.
+						.sorted(Comparator.comparing(article1 -> article1.getColor()))
 						.collect(Collectors.toList())) {
 					System.out.println("******************************************************");
 					System.out.println(article);

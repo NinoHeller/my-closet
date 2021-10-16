@@ -63,6 +63,14 @@ public class MainScreen implements ApplicationListener<ApplicationReadyEvent> {
                 break;
                 case 2: {
                     if (closet.getSizeOfMyArticles() == 0) {
+                        //TODO die println statements sorgen für viel 'noise' im Code (nehmen viel Platz ein und lenken von den wichtigeren Dinge ab)
+                        //lass uns das mal in eine statische Methode refactoren, sodass man an allen Stellen nur mehr folgendes aufrufen muss:
+                        // Logger.print("Du hast noch keine Kleidungsstücke");
+                        // TODO für die Signatur dieser Methode verwenden wir 'varargs':
+                        // static method print(String text, String...moreText) {...}
+                        // auf diese Weise können wir auch multi-line-prints machen:
+                        // Logger.print("Wonach möchtest du suchen?, "...");
+                        // Logger.print("Wonach möchtest du suchen?, "Zur Auswahl stehen:", "T-Shirt, Hose und Jacke");
                         System.out.println("******************************************************");
                         System.out.println("*         Du hast noch keine Kleidungsstücke         *");
                         System.out.println("******************************************************");

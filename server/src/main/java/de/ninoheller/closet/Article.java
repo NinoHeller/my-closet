@@ -14,6 +14,10 @@ public class Article {
 	private final String brand;
 	private final String size;
 
+	//TODO enum würde man wie classes immer capitalized und singular schreiben: enum Size {...}
+	// Article.size sollte vom Type Size sein: private final Size size;
+	// nur auf diese Weise kann man enforcen, dass size valide Werte annimmt. Aktuell kann size jeden beliebigen String annehmen.
+	// Am Ende muss man dann auch equals, hashcode und toString neu generieren
 	private enum sizes {s, m, l, xl};
 
 	@Override

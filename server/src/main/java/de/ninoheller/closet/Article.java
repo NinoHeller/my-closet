@@ -73,7 +73,9 @@ public class Article {
 
 	@Override
 	public String toString() {
-		return "Dieser Artikel ist ein(e) " + type + "\n" + "In der Farbe " + color + "\n" + "Von der Marke " + brand + "\n" + "In der Größe " + size + "\n";
+		return "******************************************************\n"
+				+"Dieser Artikel ist ein(e) " + type + "\n" + "In der Farbe " + color + "\n" + "Von der Marke " + brand + "\n" + "In der Größe " + size + "\n"
+				+"******************************************************\n";
 	}
 
 	//getters

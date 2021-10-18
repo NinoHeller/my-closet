@@ -21,5 +21,5 @@ public class ClosetController {
     Set<Article> getAllArticles() {
         return closet.getMyArticles();
     }
-
+    
 }

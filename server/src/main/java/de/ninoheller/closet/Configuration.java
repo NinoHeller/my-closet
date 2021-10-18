@@ -1,6 +1,6 @@
 package de.ninoheller.closet;
 
-import com.mongodb.client.MongoClient;
+/*import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import de.flapdoodle.embed.mongo.MongodExecutable;
 import de.flapdoodle.embed.mongo.MongodStarter;
@@ -13,14 +13,14 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.event.EventListener;
-import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.MongoTemplate;*/
 
 import java.net.UnknownHostException;
 
 @org.springframework.context.annotation.Configuration
 public class Configuration {
 
-    @Bean
+  /* @Bean
     public MongoClient mongoClient() {
         return MongoClients.create("mongodb://localhost:27017");
     }
@@ -43,5 +43,5 @@ public class Configuration {
 
         MongodStarter starter = MongodStarter.getDefaultInstance();
         return starter.prepare(mongodConfig);
-    }
+    }*/
 }

@@ -2,10 +2,8 @@ package de.ninoheller.closet;
 
 import org.springframework.stereotype.Component;
 
-import java.util.Comparator;
-import java.util.Locale;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
+
 
 public class Article {
 
@@ -42,15 +40,19 @@ public class Article {
     }
 
     //Comparators
-    static class Comperators {
+    static class Comparators {
         static final Comparator<Article> BYTYPE = Comparator.comparing(Article::getType);
         static final Comparator<Article> BYCOLOR = Comparator.comparing(Article::getColor);
         static final Comparator<Article> BYBRAND = Comparator.comparing(Article::getBrand);
         static final Comparator<Article> BYSIZE = Comparator.comparing(Article::getSize);
 
-        static Comparator<Article> merge(Comparator<Article> comparator1, Comparator<Article> comparator2, Comparator<Article> comparator3){
-            Comparator<Article> comparator;
-            return  comparator = comparator1.thenComparing(comparator2).thenComparing(comparator3);
+        static Comparator<Article> merge(Comparator<Article> comparator, Comparator<Article>... more) {
+            List<Comparator<Article>> list = new ArrayList<>();
+            list.add(comparator);
+            list.addAll(Arrays.asList(more));
+            return list.stream()
+                    .reduce(((comparator1, comparator2) -> comparator1.thenComparing(comparator2)))
+                    .orElse(comparator);
         }
 
     }
@@ -69,17 +71,6 @@ public class Article {
         String brand = scanner.next();
         Logger.print("Ok - Welche Größe hat das Kleidungsstück?", "s, m, l oder xl");
         Sizes size = Sizes.valueOf(scanner.next().toLowerCase(Locale.ROOT));
-		/*try {
-			String size = sizes.valueOf(scanner.next().toLowerCase(Locale.ROOT)).toString();
-		}catch (Exception e1){
-			System.out.println("Bitte nur die vorgegebenen Größen wählen");
-			try{
-				String size = sizes.valueOf(scanner.next().toLowerCase(Locale.ROOT)).toString();
-			}catch (Exception e2){
-				System.out.println("Diese Größe gibt es nicht! Die Größe des Artikels wurde auf s festgelegt");
-				String size = sizes.valueOf("s").toString();
-			}
-		}*/
         Logger.print("Ok - Dein Kleidungsstück wurde aufgehangen! :)");
 
         Article newArticle = new Article(type, color, brand, size);
@@ -90,6 +81,7 @@ public class Article {
 
     @Override
     public String toString() {
+
         return "******************************************************\n"
                 + "Dieser Artikel ist ein(e) " + type + "\n" + "In der Farbe " + color + "\n" + "Von der Marke " + brand + "\n" + "In der Größe " + size + "\n"
                 + "******************************************************\n";

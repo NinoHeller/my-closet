@@ -14,8 +14,6 @@ public class MainScreen implements ApplicationListener<ApplicationReadyEvent> {
     private final Closet closet;
     private final DummyArticles dummyArticles;
 
-    @Autowired
-    Article2Repository repository;
 
     @Autowired
     public MainScreen(Closet closet, DummyArticles dummyArticles) {
@@ -26,13 +24,6 @@ public class MainScreen implements ApplicationListener<ApplicationReadyEvent> {
 
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {
-        repository.saveArticle(new Article2("t-shirt", "blue", "XXL", "Lacoste"));
-        repository.saveArticle(new Article2("t-shirt", "white", "XL", "Lacoste"));
-        repository.saveArticle(new Article2("t-shirt", "orange", "L", "Lacoste"));
-        repository.saveArticle(new Article2("t-shirt", "silver", "M", "Lacoste"));
-        repository.saveArticle(new Article2("t-shirt", "taupe", "S", "Lacoste"));
-
-        List<Article2> articles = repository.readArticleByType("t-shirt");
 
         //Add dummy articles
         for (int i = 0; i < dummyArticles.dummyList.size(); i++) {
@@ -43,7 +34,6 @@ public class MainScreen implements ApplicationListener<ApplicationReadyEvent> {
         int mainMenueSelection;
         int searchArticleSelection;
         int indexSelection;
-        String searchParameter;
         do {
             MainMenue.showMainMenue();
             try {
@@ -59,11 +49,10 @@ public class MainScreen implements ApplicationListener<ApplicationReadyEvent> {
                 }
             }
             switch (mainMenueSelection) {// 1. add article 2. search article 3. delete article
-                case 1: {
-                    closet.addArticle(Article.createArticle());
-                }
-                break;
-                case 2: {
+                case 1 -> closet.addArticle(Article.createArticle());
+
+
+                case 2 -> {
                     if (closet.getSizeOfMyArticles() == 0) {
                         Logger.print("Du hast noch keine Kleidungsstücke.");
                     } else {
@@ -76,8 +65,7 @@ public class MainScreen implements ApplicationListener<ApplicationReadyEvent> {
                         }
                     }
                 }
-                break;
-                case 3: {
+                case 3 -> {
                     if (closet.getSizeOfMyArticles() == 0) {
                         Logger.print("Du hast noch keine Kleidungsstücke.");
                     } else {
@@ -91,15 +79,8 @@ public class MainScreen implements ApplicationListener<ApplicationReadyEvent> {
                         }
                     }
                 }
-                break;
-                case 4: {
-                    Logger.print("Auf Wiedersehen! :)");
-                }
-                break;
-                default: {
-                    Logger.print("Diese Auswahl gibt es nicht!");
-                }
-                break;
+                case 4 -> Logger.print("Auf Wiedersehen! :)");
+                default -> Logger.print("Diese Auswahl gibt es nicht!");
             }
         } while (mainMenueSelection != 4);
         scanner.close();

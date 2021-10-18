@@ -5,13 +5,13 @@ import org.springframework.stereotype.Component;
 import java.util.*;
 
 @Component
-public class Closet {
+class Closet {
     // Attributes
     private Set<Article> myArticles;
 
     // Constructor
-    public Closet() {
-        myArticles = new LinkedHashSet<>();
+    Closet() {
+        myArticles = new HashSet<>();
     }
 
     // methods
@@ -35,17 +35,17 @@ public class Closet {
                 if (comparator == 1) {
                     myArticles.stream()
                             .filter(article -> article.getType().equalsIgnoreCase(parameter))
-                            .sorted(Article.Comperators.merge(Article.Comperators.BYCOLOR, Article.Comperators.BYBRAND, Article.Comperators.BYSIZE))
+                            .sorted(Article.Comparators.merge(Article.Comparators.BYCOLOR, Article.Comparators.BYBRAND, Article.Comparators.BYSIZE))
                             .forEach(article -> System.out.println(article));
                 } else if (comparator == 2) {
                     myArticles.stream()
                             .filter(article -> article.getType().equalsIgnoreCase(parameter))
-                            .sorted(Article.Comperators.merge(Article.Comperators.BYBRAND, Article.Comperators.BYCOLOR, Article.Comperators.BYSIZE))
+                            .sorted(Article.Comparators.merge(Article.Comparators.BYBRAND, Article.Comparators.BYCOLOR, Article.Comparators.BYSIZE))
                             .forEach(article -> System.out.println(article));
                 } else {
                     myArticles.stream()
                             .filter(article -> article.getType().equalsIgnoreCase(parameter))
-                            .sorted(Article.Comperators.merge(Article.Comperators.BYSIZE, Article.Comperators.BYBRAND, Article.Comperators.BYCOLOR))
+                            .sorted(Article.Comparators.merge(Article.Comparators.BYSIZE, Article.Comparators.BYBRAND, Article.Comparators.BYCOLOR))
                             .forEach(article -> System.out.println(article));
                 }
             }
@@ -58,17 +58,17 @@ public class Closet {
                 if (comparator == 1) {
                     myArticles.stream()
                             .filter(article -> article.getColor().equalsIgnoreCase(parameter))
-                            .sorted(Article.Comperators.merge(Article.Comperators.BYTYPE, Article.Comperators.BYBRAND, Article.Comperators.BYSIZE))
+                            .sorted(Article.Comparators.merge(Article.Comparators.BYTYPE, Article.Comparators.BYBRAND, Article.Comparators.BYSIZE))
                             .forEach(article -> System.out.println(article));
                 } else if (comparator == 2) {
                     myArticles.stream()
                             .filter(article -> article.getColor().equalsIgnoreCase(parameter))
-                            .sorted(Article.Comperators.merge(Article.Comperators.BYBRAND, Article.Comperators.BYTYPE, Article.Comperators.BYSIZE))
+                            .sorted(Article.Comparators.merge(Article.Comparators.BYBRAND, Article.Comparators.BYTYPE, Article.Comparators.BYSIZE))
                             .forEach(article -> System.out.println(article));
                 } else {
                     myArticles.stream()
                             .filter(article -> article.getColor().equalsIgnoreCase(parameter))
-                            .sorted(Article.Comperators.merge(Article.Comperators.BYSIZE, Article.Comperators.BYTYPE, Article.Comperators.BYBRAND))
+                            .sorted(Article.Comparators.merge(Article.Comparators.BYSIZE, Article.Comparators.BYTYPE, Article.Comparators.BYBRAND))
                             .forEach(article -> System.out.println(article));
                 }
             }
@@ -81,17 +81,17 @@ public class Closet {
                 if (comparator == 1) {
                     myArticles.stream()
                             .filter(article -> article.getBrand().equalsIgnoreCase(parameter))
-                            .sorted(Article.Comperators.merge(Article.Comperators.BYTYPE, Article.Comperators.BYCOLOR, Article.Comperators.BYSIZE))
+                            .sorted(Article.Comparators.merge(Article.Comparators.BYTYPE, Article.Comparators.BYCOLOR, Article.Comparators.BYSIZE))
                             .forEach(article -> System.out.println(article));
                 } else if (comparator == 2) {
                     myArticles.stream()
                             .filter(article -> article.getBrand().equalsIgnoreCase(parameter))
-                            .sorted(Article.Comperators.merge(Article.Comperators.BYCOLOR, Article.Comperators.BYTYPE, Article.Comperators.BYSIZE))
+                            .sorted(Article.Comparators.merge(Article.Comparators.BYCOLOR, Article.Comparators.BYTYPE, Article.Comparators.BYSIZE))
                             .forEach(article -> System.out.println(article));
                 } else {
                     myArticles.stream()
                             .filter(article -> article.getBrand().equalsIgnoreCase(parameter))
-                            .sorted(Article.Comperators.merge(Article.Comperators.BYSIZE, Article.Comperators.BYTYPE, Article.Comperators.BYCOLOR))
+                            .sorted(Article.Comparators.merge(Article.Comparators.BYSIZE, Article.Comparators.BYTYPE, Article.Comparators.BYCOLOR))
                             .forEach(article -> System.out.println(article));
                 }
             }
@@ -104,17 +104,17 @@ public class Closet {
                 if (comparator == 1) {
                     myArticles.stream()
                             .filter(article -> article.getSize().equalsIgnoreCase(parameter))
-                            .sorted(Article.Comperators.merge(Article.Comperators.BYTYPE, Article.Comperators.BYBRAND, Article.Comperators.BYCOLOR))
+                            .sorted(Article.Comparators.merge(Article.Comparators.BYTYPE, Article.Comparators.BYBRAND, Article.Comparators.BYCOLOR))
                             .forEach(article -> System.out.println(article));
                 } else if (comparator == 2) {
                     myArticles.stream()
                             .filter(article -> article.getSize().equalsIgnoreCase(parameter))
-                            .sorted(Article.Comperators.merge(Article.Comperators.BYCOLOR, Article.Comperators.BYTYPE, Article.Comperators.BYBRAND))
+                            .sorted(Article.Comparators.merge(Article.Comparators.BYCOLOR, Article.Comparators.BYTYPE, Article.Comparators.BYBRAND))
                             .forEach(article -> System.out.println(article));
                 } else {
                     myArticles.stream()
                             .filter(article -> article.getSize().equalsIgnoreCase(parameter))
-                            .sorted(Article.Comperators.merge(Article.Comperators.BYBRAND, Article.Comperators.BYTYPE, Article.Comperators.BYCOLOR))
+                            .sorted(Article.Comparators.merge(Article.Comparators.BYBRAND, Article.Comparators.BYTYPE, Article.Comparators.BYCOLOR))
                             .forEach(article -> System.out.println(article));
                 }
             }
@@ -122,7 +122,7 @@ public class Closet {
             case 5: {
                 Logger.print("Hier sind alle deine Kleidungsstücke.");
                 myArticles.stream()
-                        .sorted(Article.Comperators.merge(Article.Comperators.BYTYPE, Article.Comperators.BYCOLOR, Article.Comperators.BYBRAND))
+                        .sorted(Article.Comparators.merge(Article.Comparators.BYTYPE, Article.Comparators.BYCOLOR, Article.Comparators.BYBRAND))
                         .forEach(article -> System.out.println(article));
             }
             break;

@@ -7,19 +7,19 @@ import java.util.*;
 @Component
 class Closet {
     // Attributes
-    private Set<Article> myArticles;
+    private List<Article> articles;
 
     // Constructor
     Closet() {
-        myArticles = new HashSet<>();
+        articles = new ArrayList<>();
     }
 
     // methods
 
     // adds an article to the closet
-    public boolean addArticle(Article newArticle) {
-        myArticles.add(newArticle);
-        return true;
+    public Article addArticle(Article newArticle) {
+        articles.add(newArticle);
+        return newArticle;
     }
 
     // search for an article from the closet
@@ -33,17 +33,17 @@ class Closet {
                 Logger.print("Wie soll sortiert werden?", "1. nach Farbe", "2. nach Marke", "3. nach Größe");
                 int comparator = scanner.nextInt();
                 if (comparator == 1) {
-                    myArticles.stream()
+                    articles.stream()
                             .filter(article -> article.getType().equalsIgnoreCase(parameter))
                             .sorted(Article.Comparators.merge(Article.Comparators.BYCOLOR, Article.Comparators.BYBRAND, Article.Comparators.BYSIZE))
                             .forEach(article -> System.out.println(article));
                 } else if (comparator == 2) {
-                    myArticles.stream()
+                    articles.stream()
                             .filter(article -> article.getType().equalsIgnoreCase(parameter))
                             .sorted(Article.Comparators.merge(Article.Comparators.BYBRAND, Article.Comparators.BYCOLOR, Article.Comparators.BYSIZE))
                             .forEach(article -> System.out.println(article));
                 } else {
-                    myArticles.stream()
+                    articles.stream()
                             .filter(article -> article.getType().equalsIgnoreCase(parameter))
                             .sorted(Article.Comparators.merge(Article.Comparators.BYSIZE, Article.Comparators.BYBRAND, Article.Comparators.BYCOLOR))
                             .forEach(article -> System.out.println(article));
@@ -56,17 +56,17 @@ class Closet {
                 Logger.print("Wie soll sortiert werden?", "1. nach Typ", "2. nach Marke", "3. nach Größe");
                 int comparator = scanner.nextInt();
                 if (comparator == 1) {
-                    myArticles.stream()
+                    articles.stream()
                             .filter(article -> article.getColor().equalsIgnoreCase(parameter))
                             .sorted(Article.Comparators.merge(Article.Comparators.BYTYPE, Article.Comparators.BYBRAND, Article.Comparators.BYSIZE))
                             .forEach(article -> System.out.println(article));
                 } else if (comparator == 2) {
-                    myArticles.stream()
+                    articles.stream()
                             .filter(article -> article.getColor().equalsIgnoreCase(parameter))
                             .sorted(Article.Comparators.merge(Article.Comparators.BYBRAND, Article.Comparators.BYTYPE, Article.Comparators.BYSIZE))
                             .forEach(article -> System.out.println(article));
                 } else {
-                    myArticles.stream()
+                    articles.stream()
                             .filter(article -> article.getColor().equalsIgnoreCase(parameter))
                             .sorted(Article.Comparators.merge(Article.Comparators.BYSIZE, Article.Comparators.BYTYPE, Article.Comparators.BYBRAND))
                             .forEach(article -> System.out.println(article));
@@ -79,17 +79,17 @@ class Closet {
                 Logger.print("Wie soll sortiert werden?", "1. nach Typ", "2. nach Farbe", "3. nach Größe");
                 int comparator = scanner.nextInt();
                 if (comparator == 1) {
-                    myArticles.stream()
+                    articles.stream()
                             .filter(article -> article.getBrand().equalsIgnoreCase(parameter))
                             .sorted(Article.Comparators.merge(Article.Comparators.BYTYPE, Article.Comparators.BYCOLOR, Article.Comparators.BYSIZE))
                             .forEach(article -> System.out.println(article));
                 } else if (comparator == 2) {
-                    myArticles.stream()
+                    articles.stream()
                             .filter(article -> article.getBrand().equalsIgnoreCase(parameter))
                             .sorted(Article.Comparators.merge(Article.Comparators.BYCOLOR, Article.Comparators.BYTYPE, Article.Comparators.BYSIZE))
                             .forEach(article -> System.out.println(article));
                 } else {
-                    myArticles.stream()
+                    articles.stream()
                             .filter(article -> article.getBrand().equalsIgnoreCase(parameter))
                             .sorted(Article.Comparators.merge(Article.Comparators.BYSIZE, Article.Comparators.BYTYPE, Article.Comparators.BYCOLOR))
                             .forEach(article -> System.out.println(article));
@@ -102,17 +102,17 @@ class Closet {
                 Logger.print("Wie soll sortiert werden?", "1. nach Typ", "2. nach Farbe", "3. nach Marke");
                 int comparator = scanner.nextInt();
                 if (comparator == 1) {
-                    myArticles.stream()
+                    articles.stream()
                             .filter(article -> article.getSize().equalsIgnoreCase(parameter))
                             .sorted(Article.Comparators.merge(Article.Comparators.BYTYPE, Article.Comparators.BYBRAND, Article.Comparators.BYCOLOR))
                             .forEach(article -> System.out.println(article));
                 } else if (comparator == 2) {
-                    myArticles.stream()
+                    articles.stream()
                             .filter(article -> article.getSize().equalsIgnoreCase(parameter))
                             .sorted(Article.Comparators.merge(Article.Comparators.BYCOLOR, Article.Comparators.BYTYPE, Article.Comparators.BYBRAND))
                             .forEach(article -> System.out.println(article));
                 } else {
-                    myArticles.stream()
+                    articles.stream()
                             .filter(article -> article.getSize().equalsIgnoreCase(parameter))
                             .sorted(Article.Comparators.merge(Article.Comparators.BYBRAND, Article.Comparators.BYTYPE, Article.Comparators.BYCOLOR))
                             .forEach(article -> System.out.println(article));
@@ -121,7 +121,7 @@ class Closet {
             break;
             case 5: {
                 Logger.print("Hier sind alle deine Kleidungsstücke.");
-                myArticles.stream()
+                articles.stream()
                         .sorted(Article.Comparators.merge(Article.Comparators.BYTYPE, Article.Comparators.BYCOLOR, Article.Comparators.BYBRAND))
                         .forEach(article -> System.out.println(article));
             }
@@ -140,12 +140,19 @@ class Closet {
     }
 
     // getters
-    public Set<Article> getMyArticles() {
-        return myArticles;
+    public List<Article> getArticles() {
+        return articles;
     }
 
     public int getSizeOfMyArticles() {
-        return myArticles.size();
+        return articles.size();
     }
 
+    public Article getArticleById(String articleId) {
+        return articles.stream()
+                .filter(article -> article.getId().equals(articleId))
+                .findFirst()
+                .orElse(null);
+
+    }
 }

@@ -3,8 +3,11 @@ package de.ninoheller.closet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Scanner;
 
@@ -13,22 +16,40 @@ public class MainScreen implements ApplicationListener<ApplicationReadyEvent> {
 
     private final Closet closet;
     private final DummyArticles dummyArticles;
+    private final RestTemplate restTemplate;
 
 
     @Autowired
-    public MainScreen(Closet closet, DummyArticles dummyArticles) {
+    public MainScreen(Closet closet, DummyArticles dummyArticles, RestTemplate restTemplate) {
         this.closet = closet;
         this.dummyArticles = dummyArticles;
+        this.restTemplate = restTemplate;
     }
 
 
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {
 
+
+        URI lastUri = null;
         //Add dummy articles
         for (int i = 0; i < dummyArticles.dummyList.size(); i++) {
-            closet.addArticle(dummyArticles.dummyList.get(i));
+            //call server with new Article via HTTP
+//            closet.addArticle(dummyArticles.dummyList.get(i));
+            Article article = dummyArticles.dummyList.get(i);
+            lastUri = restTemplate.postForLocation("http://localhost:8080/articles", article);
+            System.out.println("created new article at resource location " + lastUri);
         }
+
+
+        String url = "http://localhost:8080" + lastUri;
+        ResponseEntity<Article> response = restTemplate.getForEntity(url, Article.class);
+
+        System.out.println(response.getStatusCode());
+        Article body = response.getBody();
+        System.out.println(body);
+        System.out.println(response.getHeaders());
+
 
         Scanner scanner = new Scanner(System.in);
         int mainMenueSelection;

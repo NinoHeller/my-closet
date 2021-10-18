@@ -1,11 +1,13 @@
 package de.ninoheller.closet;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.RequestContext;
 
+import javax.websocket.server.PathParam;
+import java.net.URI;
 import java.util.List;
-import java.util.Set;
 
 @RestController
 public class ClosetController {
@@ -18,8 +20,20 @@ public class ClosetController {
     }
 
     @GetMapping("/articles")
-    Set<Article> getAllArticles() {
-        return closet.getMyArticles();
+    List<Article> getAllArticles() {
+        return closet.getArticles();
     }
-    
+
+
+    @PostMapping("/articles")
+    ResponseEntity<?> addNewArticle(@RequestBody Article article) {
+        Article newArticle = closet.addArticle(article);
+        return ResponseEntity.created(URI.create("/articles/" + newArticle.getId())).build();
+    }
+
+    @GetMapping("/articles/{articleId}")
+    ResponseEntity<Article> getArticles(@PathVariable String articleId) {
+        Article article = closet.getArticleById(articleId);
+        return ResponseEntity.ok(article);
+    }
 }

@@ -7,6 +7,7 @@ import java.util.*;
 
 public class Article {
 
+    private final String id;
     //Attributes
     private final String type;
     private final String color;
@@ -15,24 +16,10 @@ public class Article {
 
     private enum Sizes {s, m, l, xl}
 
-    ;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Article article = (Article) o;
-        return Objects.equals(getType(), article.getType()) && Objects.equals(getColor(), article.getColor()) && Objects.equals(getBrand(), article.getBrand()) && getSize() == article.getSize();
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getType(), getColor(), getBrand(), getSize());
-    }
-
     //Constructor
 
     public Article(String type, String color, String brand, Sizes size) {
+        id = UUID.randomUUID().toString();
         this.type = type;
         this.color = color;
         this.brand = brand;
@@ -41,11 +28,12 @@ public class Article {
 
     //Comparators
     static class Comparators {
+
         static final Comparator<Article> BYTYPE = Comparator.comparing(Article::getType);
+
         static final Comparator<Article> BYCOLOR = Comparator.comparing(Article::getColor);
         static final Comparator<Article> BYBRAND = Comparator.comparing(Article::getBrand);
         static final Comparator<Article> BYSIZE = Comparator.comparing(Article::getSize);
-
         static Comparator<Article> merge(Comparator<Article> comparator, Comparator<Article>... more) {
             List<Comparator<Article>> list = new ArrayList<>();
             list.add(comparator);
@@ -55,11 +43,12 @@ public class Article {
                     .orElse(comparator);
         }
 
+
     }
 
     //Methods
-
     // creates an article
+
     public static Article createArticle() {
         Scanner scanner = new Scanner(System.in);
 
@@ -78,6 +67,19 @@ public class Article {
         return newArticle;
     }
 
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getType(), getColor(), getBrand(), getSize());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Article article = (Article) o;
+        return Objects.equals(getType(), article.getType()) && Objects.equals(getColor(), article.getColor()) && Objects.equals(getBrand(), article.getBrand()) && getSize() == article.getSize();
+    }
 
     @Override
     public String toString() {
@@ -102,6 +104,10 @@ public class Article {
 
     public String getSize() {
         return size.toString();
+    }
+
+    public String getId() {
+        return id;
     }
 
     public static Sizes getSizes(String size) {

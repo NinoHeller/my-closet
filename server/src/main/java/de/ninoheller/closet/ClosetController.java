@@ -19,11 +19,24 @@ public class ClosetController {
         this.closet = closet;
     }
 
-    @GetMapping("/articles")
-    List<Article> getAllArticles() {
-        return closet.getArticles();
+    @GetMapping("/closet")
+    Closet getCloset(){
+        return closet;
     }
 
+    @PostMapping("/closet/articles/add")
+    Article addTestArticle(@RequestBody Article article){
+        return closet.addArticle(article);
+    }
+
+    @GetMapping("/closet/articles/delete/{articleId}")
+    String deleteArticle(@PathVariable String articleId) {
+        if (closet.removeArticle(articleId)){
+            return "Der Artikel wurde entfernt.";
+        }else {
+            return "Diese ID gibt es nicht.";
+        }
+    }
 
     @PostMapping("/articles")
     ResponseEntity<?> addNewArticle(@RequestBody Article article) {

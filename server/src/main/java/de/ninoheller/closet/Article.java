@@ -19,7 +19,7 @@ public class Article {
     //Constructor
 
     public Article(String type, String color, String brand, Sizes size) {
-        id = UUID.randomUUID().toString();
+        this.id = UUID.randomUUID().toString();
         this.type = type;
         this.color = color;
         this.brand = brand;
@@ -85,7 +85,7 @@ public class Article {
     public String toString() {
 
         return "******************************************************\n"
-                + "Dieser Artikel ist ein(e) " + type + "\n" + "In der Farbe " + color + "\n" + "Von der Marke " + brand + "\n" + "In der Größe " + size + "\n"
+                + "Dieser Artikel ist ein(e) " + type + "\n" + "In der Farbe " + color + "\n" + "Von der Marke " + brand + "\n" + "In der Größe " + size + "\n" + "ID: " + id + "\n"
                 + "******************************************************\n";
     }
 

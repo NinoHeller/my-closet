@@ -14,14 +14,12 @@ import java.util.Scanner;
 @Component
 public class MainScreen implements ApplicationListener<ApplicationReadyEvent> {
 
-    private final Closet closet;
     private final DummyArticles dummyArticles;
     private final RestTemplate restTemplate;
 
 
     @Autowired
-    public MainScreen(Closet closet, DummyArticles dummyArticles, RestTemplate restTemplate) {
-        this.closet = closet;
+    public MainScreen(DummyArticles dummyArticles, RestTemplate restTemplate) {
         this.dummyArticles = dummyArticles;
         this.restTemplate = restTemplate;
     }
@@ -30,7 +28,7 @@ public class MainScreen implements ApplicationListener<ApplicationReadyEvent> {
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {
 
-
+        /*  Tests
         URI lastUri = null;
         //Add dummy articles
         for (int i = 0; i < dummyArticles.dummyList.size(); i++) {
@@ -50,6 +48,17 @@ public class MainScreen implements ApplicationListener<ApplicationReadyEvent> {
         System.out.println(body);
         System.out.println(response.getHeaders());
 
+        Closet responseTest = restTemplate.getForObject("http://localhost:8080/closet", Closet.class);
+        responseTest.getArticles()
+                .stream()
+                .filter(article -> article.getBrand().equalsIgnoreCase("H&M"))
+                .forEach(article -> System.out.println(article)); */
+
+
+        // fill Closet with dummy articles
+        for (int i = 0; i < dummyArticles.dummyList.size(); i++) {
+            restTemplate.postForObject("http://localhost:8080/closet/articles/add", dummyArticles.dummyList.get(i), Article.class);
+        }
 
         Scanner scanner = new Scanner(System.in);
         int mainMenueSelection;
@@ -70,10 +79,11 @@ public class MainScreen implements ApplicationListener<ApplicationReadyEvent> {
                 }
             }
             switch (mainMenueSelection) {// 1. add article 2. search article 3. delete article
-                case 1 -> closet.addArticle(Article.createArticle());
-
+                case 1 ->
+                    restTemplate.postForObject("http://localhost:8080/closet/articles/add",Article.createArticle(),Article.class);
 
                 case 2 -> {
+                    Closet closet = restTemplate.getForObject("http://localhost:8080/closet", Closet.class);
                     if (closet.getSizeOfMyArticles() == 0) {
                         Logger.print("Du hast noch keine Kleidungsstücke.");
                     } else {
@@ -82,23 +92,131 @@ public class MainScreen implements ApplicationListener<ApplicationReadyEvent> {
                         if (searchArticleSelection > 5) {
                             Logger.print("Diese Auswahl gibt es nicht!");
                         } else {
-                            closet.searchArticle(searchArticleSelection);
+                            switch (searchArticleSelection) {// 1. by type 2. by color 3. by brand 4. by size 5. show all
+                                case 1: {
+                                    Logger.print("Wonach möchtest du suchen?", "z.B. Jacke / Hose / Schuhe");
+                                    String parameter = scanner.next();
+                                    Logger.print("Wie soll sortiert werden?", "1. nach Farbe", "2. nach Marke", "3. nach Größe");
+                                    int comparator = scanner.nextInt();
+                                    if (comparator == 1) {
+                                        closet.getArticles()
+                                                .stream()
+                                                .filter(article -> article.getType().equalsIgnoreCase(parameter))
+                                                .sorted(Article.Comparators.merge(Article.Comparators.BYCOLOR, Article.Comparators.BYBRAND, Article.Comparators.BYSIZE))
+                                                .forEach(article -> System.out.println(article));
+                                    } else if (comparator == 2) {
+                                        closet.getArticles()
+                                                .stream()
+                                                .filter(article -> article.getType().equalsIgnoreCase(parameter))
+                                                .sorted(Article.Comparators.merge(Article.Comparators.BYBRAND, Article.Comparators.BYCOLOR, Article.Comparators.BYSIZE))
+                                                .forEach(article -> System.out.println(article));
+                                    } else {
+                                        closet.getArticles()
+                                                .stream()
+                                                .filter(article -> article.getType().equalsIgnoreCase(parameter))
+                                                .sorted(Article.Comparators.merge(Article.Comparators.BYSIZE, Article.Comparators.BYBRAND, Article.Comparators.BYCOLOR))
+                                                .forEach(article -> System.out.println(article));
+                                    }break;
+                                }
+                                case 2: {
+                                    Logger.print("Nach welcher Farbe möchtest du suchen?");
+                                    String parameter = scanner.next();
+                                    Logger.print("Wie soll sortiert werden?", "1. nach Typ", "2. nach Marke", "3. nach Größe");
+                                    int comparator = scanner.nextInt();
+                                    if (comparator == 1) {
+                                        closet.getArticles()
+                                                .stream()
+                                                .filter(article -> article.getColor().equalsIgnoreCase(parameter))
+                                                .sorted(Article.Comparators.merge(Article.Comparators.BYTYPE, Article.Comparators.BYBRAND, Article.Comparators.BYSIZE))
+                                                .forEach(article -> System.out.println(article));
+                                    } else if (comparator == 2) {
+                                        closet.getArticles()
+                                                .stream()
+                                                .filter(article -> article.getColor().equalsIgnoreCase(parameter))
+                                                .sorted(Article.Comparators.merge(Article.Comparators.BYBRAND, Article.Comparators.BYTYPE, Article.Comparators.BYSIZE))
+                                                .forEach(article -> System.out.println(article));
+                                    } else {
+                                        closet.getArticles()
+                                                .stream()
+                                                .filter(article -> article.getColor().equalsIgnoreCase(parameter))
+                                                .sorted(Article.Comparators.merge(Article.Comparators.BYSIZE, Article.Comparators.BYTYPE, Article.Comparators.BYBRAND))
+                                                .forEach(article -> System.out.println(article));
+                                    }break;
+                                }
+                                case 3: {
+                                    Logger.print("Nach welcher Marke möchtest du suchen?");
+                                    String parameter = scanner.next();
+                                    Logger.print("Wie soll sortiert werden?", "1. nach Typ", "2. nach Farbe", "3. nach Größe");
+                                    int comparator = scanner.nextInt();
+                                    if (comparator == 1) {
+                                        closet.getArticles()
+                                                .stream()
+                                                .filter(article -> article.getBrand().equalsIgnoreCase(parameter))
+                                                .sorted(Article.Comparators.merge(Article.Comparators.BYTYPE, Article.Comparators.BYCOLOR, Article.Comparators.BYSIZE))
+                                                .forEach(article -> System.out.println(article));
+                                    } else if (comparator == 2) {
+                                        closet.getArticles()
+                                                .stream()
+                                                .filter(article -> article.getBrand().equalsIgnoreCase(parameter))
+                                                .sorted(Article.Comparators.merge(Article.Comparators.BYCOLOR, Article.Comparators.BYTYPE, Article.Comparators.BYSIZE))
+                                                .forEach(article -> System.out.println(article));
+                                    } else {
+                                        closet.getArticles()
+                                                .stream()
+                                                .filter(article -> article.getBrand().equalsIgnoreCase(parameter))
+                                                .sorted(Article.Comparators.merge(Article.Comparators.BYSIZE, Article.Comparators.BYTYPE, Article.Comparators.BYCOLOR))
+                                                .forEach(article -> System.out.println(article));
+                                    }break;
+                                }
+                                case 4: {
+                                    Logger.print("Nach welcher Größe möchtest du suchen?", "s / m / l / xl");
+                                    String parameter = scanner.next();
+                                    Logger.print("Wie soll sortiert werden?", "1. nach Typ", "2. nach Farbe", "3. nach Marke");
+                                    int comparator = scanner.nextInt();
+                                    if (comparator == 1) {
+                                        closet.getArticles()
+                                                .stream()
+                                                .filter(article -> article.getSize().equalsIgnoreCase(parameter))
+                                                .sorted(Article.Comparators.merge(Article.Comparators.BYTYPE, Article.Comparators.BYBRAND, Article.Comparators.BYCOLOR))
+                                                .forEach(article -> System.out.println(article));
+                                    } else if (comparator == 2) {
+                                        closet.getArticles()
+                                                .stream()
+                                                .filter(article -> article.getSize().equalsIgnoreCase(parameter))
+                                                .sorted(Article.Comparators.merge(Article.Comparators.BYCOLOR, Article.Comparators.BYTYPE, Article.Comparators.BYBRAND))
+                                                .forEach(article -> System.out.println(article));
+                                    } else {
+                                        closet.getArticles()
+                                                .stream()
+                                                .filter(article -> article.getSize().equalsIgnoreCase(parameter))
+                                                .sorted(Article.Comparators.merge(Article.Comparators.BYBRAND, Article.Comparators.BYTYPE, Article.Comparators.BYCOLOR))
+                                                .forEach(article -> System.out.println(article));
+                                    }break;
+                                }
+                                case 5: {
+                                    Logger.print("Hier sind alle deine Kleidungsstücke.");
+                                    closet.getArticles()
+                                            .stream()
+                                            .forEach(article -> System.out.println(article));
+                                    break;
+                                }
+                            }
                         }
                     }
                 }
                 case 3 -> {
+                    Closet closet = restTemplate.getForObject("http://localhost:8080/closet", Closet.class);
                     if (closet.getSizeOfMyArticles() == 0) {
                         Logger.print("Du hast noch keine Kleidungsstücke.");
                     } else {
-                        closet.searchArticle(5);
-                        Logger.print("Welches Kleidungsstück möchtest du entfernen?");
-                        indexSelection = scanner.nextInt();
-                        if (indexSelection > closet.getSizeOfMyArticles()) {
-                            Logger.print("Diese Stelle gibt es nicht");
-                        } else {
-                            closet.removeArticle(indexSelection);
-                        }
-                    }
+                        Logger.print("Hier sind alle deine Kleidungsstücke.");
+                        closet.getArticles()
+                                .stream()
+                                .forEach(article -> System.out.println(article));
+                        Logger.print("Bitte gib die ID ein die du löschen möchtest.");
+                        String ID = scanner.next();
+                        System.out.println(restTemplate.getForObject("/closet/articles/delete/" + ID, String.class));
+                    }break;
                 }
                 case 4 -> Logger.print("Auf Wiedersehen! :)");
                 default -> Logger.print("Diese Auswahl gibt es nicht!");

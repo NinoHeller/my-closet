@@ -83,8 +83,8 @@ public class ClosetController {
         return ResponseEntity.created(URI.create("/articles/" + newArticle.getId())).build();
     }
 
-    @DeleteMapping("/closet/articles/{articleId}")
-    void deleteArticle(@PathVariable String articleId) {
-        closet.removeArticle(articleId);
+    @DeleteMapping("/closet/articles")
+    void deleteArticle(@RequestParam(required = true) String id) {
+        closet.removeArticle(id);
     }
 }

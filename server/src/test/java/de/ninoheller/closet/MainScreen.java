@@ -174,20 +174,18 @@ public class MainScreen implements ApplicationListener<ApplicationReadyEvent> {
                 }
 
                 case 3 -> {
-                    Closet closet = restTemplate.getForObject("http://localhost:8080/closet", Closet.class);
-                    if (closet.getSizeOfMyArticles() == 0) {
-                        Logger.print("Du hast noch keine Kleidungsstücke.");
-                        break;
-                    } else {
-                        Logger.print("Hier sind alle deine Kleidungsstücke.");
-                        closet.getAllArticles()
-                                .stream()
-                                .forEach(article -> System.out.println(article));
-                        Logger.print("Bitte gib die ID ein die du löschen möchtest.");
-                        String ID = scanner.next();
-                        restTemplate.delete("/closet/articles/" + ID, String.class);
-                        break;
-                    }
+                    url.append("http://localhost:8080/closet/articles?selection=5");
+                    Logger.print("Hier sind alle deine Kleidungsstücke.");
+                    Arrays.stream(restTemplate.getForObject(url.toString(), Article[].class))
+                            .toList()
+                            .forEach(article -> System.out.println(article));
+                    System.out.println("Bitte gib die Id ein, die du löschen möchtest.");
+                    url.replace(38,49,"id=");
+                    url.append(scanner.next());
+
+                    restTemplate.delete(url.toString());
+                    break;
+
                 }
                 case 4 -> Logger.print("Auf Wiedersehen! :)");
                 default -> Logger.print("Diese Auswahl gibt es nicht!");

@@ -109,21 +109,22 @@ class Closet {
     }
 
     // removes an article from the closet
-    public boolean removeArticle(String articleId) {
-        int index;
-        if(articles.stream()
-                        .filter(article -> article.getId().equals(articleId))
-                        .findFirst()
-                        .orElse(null)==null){
-            return false;
-        }else{
-            index = articles.indexOf(articles.stream()
-                    .filter(article -> article.getId().equals(articleId))
-                    .findFirst());
+    public void removeArticle(String articleId) {
+        Article articleToRemove = articles.stream()
+                .filter(article -> article.getId().equals(articleId))
+                .findFirst()
+                .orElse(null);
+
+        if (articleToRemove!=null) {
+            int index = articles.indexOf(articleToRemove);
+
             articles.remove(index);
-            return true;
+            System.out.println("Artikel wurde entfernt.");
+        }else{
+            System.out.println("Kein Artikel mit dieser ID vorhanden.");
         }
     }
+
 
     // getters
     public List<Article> getAllArticles() {

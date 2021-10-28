@@ -7,6 +7,7 @@ import org.springframework.web.servlet.support.RequestContext;
 
 import javax.websocket.server.PathParam;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -19,23 +20,61 @@ public class ClosetController {
         this.closet = closet;
     }
 
+    /*  Tests
+
+    @GetMapping("/closet/string")
+    String getString(@RequestParam(required = false) String color){
+        StringBuilder testString = new StringBuilder();
+        testString.append("The color is : ");
+        if (color!=null){
+        testString.append(color);
+        }
+        return testString.toString();
+    }
+
+    @GetMapping("closet/array")
+    Article[] getArticleArray(){
+        Article[] articleArray = new Article[3];
+        articleArray[0] = new Article("Jacke", "blau", "Zara", Article.getSizes("s"));
+        articleArray[1] = new Article("Hose", "blau", "Zara", Article.getSizes("s"));
+        articleArray[2] = new Article("Schuhe", "blau", "Zara", Article.getSizes("s"));
+        return articleArray;
+    }
+
+    @GetMapping("closet/arraylist")
+    Article[] getArticleArrayFromArrayList(){
+        List<Article> articleList = new ArrayList<>();
+        articleList.add(new Article("Jacke", "blau", "Zara", Article.getSizes("s")));
+        articleList.add(new Article("Hose", "blau", "Zara", Article.getSizes("s")));
+        articleList.add(new Article("Schuhe", "blau", "Zara", Article.getSizes("s")));
+
+
+        return articleList.toArray(Article[]::new);
+    }
+
+    */
+
+
+
     @GetMapping("/closet")
     Closet getCloset(){
         return closet;
     }
 
-    @PostMapping("/closet/articles/add")
-    Article addTestArticle(@RequestBody Article article){
-        return closet.addArticle(article);
+    @GetMapping("closet/articles")
+    Article[] getArticles(@RequestParam(required = false)String selection,String parameter, String comparator ){
+        return closet.getArticle(selection,parameter,comparator);
     }
 
-    @GetMapping("/closet/articles/delete/{articleId}")
-    String deleteArticle(@PathVariable String articleId) {
-        if (closet.removeArticle(articleId)){
-            return "Der Artikel wurde entfernt.";
-        }else {
-            return "Diese ID gibt es nicht.";
-        }
+    @GetMapping("/articles/{articleId}")
+    ResponseEntity<Article> getArticlesById(@PathVariable String articleId) {
+        Article article = closet.getArticleById(articleId);
+        return ResponseEntity.ok(article);
+    }
+
+    @PostMapping("/closet/articles")
+    Article addTestArticle(@RequestBody Article article){
+        return closet.addArticle(article);
     }
 
     @PostMapping("/articles")
@@ -44,9 +83,8 @@ public class ClosetController {
         return ResponseEntity.created(URI.create("/articles/" + newArticle.getId())).build();
     }
 
-    @GetMapping("/articles/{articleId}")
-    ResponseEntity<Article> getArticles(@PathVariable String articleId) {
-        Article article = closet.getArticleById(articleId);
-        return ResponseEntity.ok(article);
+    @DeleteMapping("/closet/articles/{articleId}")
+    void deleteArticle(@PathVariable String articleId) {
+        closet.removeArticle(articleId);
     }
 }

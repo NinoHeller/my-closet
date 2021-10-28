@@ -22,6 +22,92 @@ class Closet {
         return newArticle;
     }
 
+    // finds articles from the closet
+    public Article[] getArticle (String selection, String parameter, String comparator) {
+        switch (selection) {// 1. by type 2. by color 3. by brand 4. by size 5. show all
+            case "1": {
+                if (comparator.equals("1")) {
+                    return articles.stream()
+                            .filter(article -> article.getType().equalsIgnoreCase(parameter))
+                            .sorted(Article.Comparators.merge(Article.Comparators.BYCOLOR, Article.Comparators.BYBRAND, Article.Comparators.BYSIZE))
+                            .toArray(Article[]::new);
+                } else if (comparator.equals("2")) {
+                    return articles.stream()
+                            .filter(article -> article.getType().equalsIgnoreCase(parameter))
+                            .sorted(Article.Comparators.merge(Article.Comparators.BYBRAND, Article.Comparators.BYCOLOR, Article.Comparators.BYSIZE))
+                            .toArray(Article[]::new);
+                } else {
+                    return articles.stream()
+                            .filter(article -> article.getType().equalsIgnoreCase(parameter))
+                            .sorted(Article.Comparators.merge(Article.Comparators.BYSIZE, Article.Comparators.BYBRAND, Article.Comparators.BYCOLOR))
+                            .toArray(Article[]::new);
+                }
+            }
+            case "2": {
+                if (comparator.equals("1")) {
+                    return articles.stream()
+                            .filter(article -> article.getColor().equalsIgnoreCase(parameter))
+                            .sorted(Article.Comparators.merge(Article.Comparators.BYTYPE, Article.Comparators.BYBRAND, Article.Comparators.BYSIZE))
+                            .toArray(Article[]::new);
+                } else if (comparator.equals("2")) {
+                    return articles.stream()
+                            .filter(article -> article.getColor().equalsIgnoreCase(parameter))
+                            .sorted(Article.Comparators.merge(Article.Comparators.BYBRAND, Article.Comparators.BYTYPE, Article.Comparators.BYSIZE))
+                            .toArray(Article[]::new);
+                } else {
+                    return articles.stream()
+                            .filter(article -> article.getColor().equalsIgnoreCase(parameter))
+                            .sorted(Article.Comparators.merge(Article.Comparators.BYSIZE, Article.Comparators.BYTYPE, Article.Comparators.BYBRAND))
+                            .toArray(Article[]::new);
+                }
+            }
+            case "3": {
+                if (comparator.equals("1")) {
+                    return articles.stream()
+                            .filter(article -> article.getBrand().equalsIgnoreCase(parameter))
+                            .sorted(Article.Comparators.merge(Article.Comparators.BYTYPE, Article.Comparators.BYCOLOR, Article.Comparators.BYSIZE))
+                            .toArray(Article[]::new);
+                } else if (comparator.equals("2")) {
+                    return articles.stream()
+                            .filter(article -> article.getBrand().equalsIgnoreCase(parameter))
+                            .sorted(Article.Comparators.merge(Article.Comparators.BYCOLOR, Article.Comparators.BYTYPE, Article.Comparators.BYSIZE))
+                            .toArray(Article[]::new);
+                } else {
+                    return articles.stream()
+                            .filter(article -> article.getBrand().equalsIgnoreCase(parameter))
+                            .sorted(Article.Comparators.merge(Article.Comparators.BYSIZE, Article.Comparators.BYTYPE, Article.Comparators.BYCOLOR))
+                            .toArray(Article[]::new);
+                }
+            }
+            case "4": {
+                if (comparator.equals("1")) {
+                    return articles.stream()
+                            .filter(article -> article.getSize().equalsIgnoreCase(parameter))
+                            .sorted(Article.Comparators.merge(Article.Comparators.BYTYPE, Article.Comparators.BYBRAND, Article.Comparators.BYCOLOR))
+                            .toArray(Article[]::new);
+                } else if (comparator.equals("2")) {
+                    return articles.stream()
+                            .filter(article -> article.getSize().equalsIgnoreCase(parameter))
+                            .sorted(Article.Comparators.merge(Article.Comparators.BYCOLOR, Article.Comparators.BYTYPE, Article.Comparators.BYBRAND))
+                            .toArray(Article[]::new);
+                } else {
+                    return articles.stream()
+                            .filter(article -> article.getSize().equalsIgnoreCase(parameter))
+                            .sorted(Article.Comparators.merge(Article.Comparators.BYBRAND, Article.Comparators.BYTYPE, Article.Comparators.BYCOLOR))
+                            .toArray(Article[]::new);
+                }
+            }
+            case "5": {
+                return articles.stream()
+                        .toArray(Article[]::new);
+            }
+            default:{
+                Article[] noArticles = new Article[0];
+                return noArticles;
+            }
+        }
+    }
+
     // removes an article from the closet
     public boolean removeArticle(String articleId) {
         int index;
@@ -40,7 +126,7 @@ class Closet {
     }
 
     // getters
-    public List<Article> getArticles() {
+    public List<Article> getAllArticles() {
         return articles;
     }
 

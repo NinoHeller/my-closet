@@ -75,10 +75,10 @@ public class MainScreen implements ApplicationListener<ApplicationReadyEvent> {
         }
 
         Scanner scanner = new Scanner(System.in);
-        StringBuilder url = new StringBuilder();
         int mainMenueSelection;
         int searchArticleSelection;
         do {
+            StringBuilder url = new StringBuilder();
             MainMenue.showMainMenue();
             try {
                 mainMenueSelection = scanner.nextInt();
